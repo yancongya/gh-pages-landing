@@ -100,6 +100,20 @@ python3 scripts/validate_page.py <path-to-html>
 
 Publication requires explicit authorization. For GitHub Pages, hand off to `github-pages-legacy-deploy` and preserve its deployment boundaries. Prepared output may also target another static host, but validate base paths, routing, canonical URLs, and platform-specific redirects separately.
 
+## Desktop product landings (iSparta-style)
+
+When the page promotes an **existing desktop/Electron app**, add these decisions after the generic pipeline:
+
+- **Tokens first.** Read the app's `tokens.css` / theme variables / screenshots. The landing should look like the product on a good day, not a second brand.
+- **Product mock, not tutorial chrome.** Task cards, size gates, path/name pickers should mirror real component structure and field names. Copy states **what the feature does**; interaction lives in the control. Do not write "click chips to…" section copy.
+- **i18n + theme parity.** If the app has `uiTheme` / locales, ship landing toggles (light/dark/system, zh/en) with a pre-paint theme script to avoid flash. Persist under the same storage keys when it helps continuity.
+- **Never leak private sample data.** Paths, folder names, and token demos must be generic (or scrubbed). Ask if unsure.
+- **Lineage & credits.** Forked OSS products need a short lineage strip (original → forks → this repo) and an author wall with links.
+- **Download links must track latest.** Prefer `releases/latest/download/<stable-name>` and/or resolve the GitHub Releases API at runtime to set `href`s. Avoid hardcoding `vX.Y.Z` in landing CTAs.
+- **SEO minimum.** Title/description with product keywords, canonical, Open Graph/Twitter, `SoftwareApplication` JSON-LD, `robots.txt`, `sitemap.xml`, and a README link to the landing. Mention repo Topics/homepage for search discovery.
+
+Hand off publication to `github-pages-legacy-deploy` (legacy docs/branch) **or** an Actions `deploy-pages` workflow when the repo already uses workflow Pages.
+
 ## References
 
 - `references/workflow-and-freedom.md` — freedom modes, questioning rules, gates, and invariant priority.
@@ -110,4 +124,5 @@ Publication requires explicit authorization. For GitHub Pages, hand off to `gith
 - `references/motion-choreography.md` — motion contracts, replay/loop behavior, and runtime proof.
 - `references/mock-craft.md` — truthful dynamic mocks and proof surfaces.
 - `references/frontend-design.md` — implementation and accessibility fundamentals.
+- `references/github-pages-deploy.md` — handoff to deploy skill (legacy or Actions).
 - `scripts/validate_page.py` — static HTML and external-resource checks.
